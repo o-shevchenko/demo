@@ -1,0 +1,13 @@
+micronaut:
+  server:
+    host: localhost
+    port: 8080
+controller:
+  url: http://localhost:8080
+  path: /api
+  retry:
+    attempts: 5
+    delay: 100ms
+    multiplier: 2
+    reset: 5s
+

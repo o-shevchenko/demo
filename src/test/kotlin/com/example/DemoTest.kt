@@ -1,19 +1,31 @@
 package com.example
-import io.micronaut.runtime.EmbeddedApplication
+
+import io.micronaut.http.HttpStatus
+import io.micronaut.http.client.exceptions.HttpClientResponseException
+import io.micronaut.http.hateoas.JsonError
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
+import jakarta.inject.Inject
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
-import jakarta.inject.Inject
 
 @MicronautTest
 class DemoTest {
 
     @Inject
-    lateinit var application: EmbeddedApplication<*>
+    private lateinit var client: Client
 
     @Test
-    fun testItWorks() {
-        Assertions.assertTrue(application.isRunning)
+    fun testPass() {
+        val result = client.test("1")
+        Assertions.assertEquals(HttpStatus.OK, result.status)
+    }
+
+    @Test
+    fun testFail() {
+        val exception = Assertions.assertThrows(HttpClientResponseException::class.java) {
+            client.test("2")
+        }
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST, exception.status)
     }
 
 }
