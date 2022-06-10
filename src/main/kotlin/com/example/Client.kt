@@ -12,6 +12,7 @@ import io.micronaut.retry.annotation.CircuitBreaker
 @Client(
     value = "\${controller.url}",
     path = "\${controller.path}",
+    errorType = String::class
 )
 @CircuitBreaker(
     attempts = "\${controller.retry.attempts}",

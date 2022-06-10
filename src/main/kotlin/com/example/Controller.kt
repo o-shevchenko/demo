@@ -29,13 +29,13 @@ class Controller() {
         return Mono.just(id)
             .map {
                 when (it) {
-                    "1" -> HttpResponse.ok(it)
+                    "SUCCESS" -> HttpResponse.ok(it)
                     else -> throw java.lang.IllegalArgumentException()
                 }
             }
             .defaultIfEmpty(HttpResponse.ok())
             .onErrorResume { exception ->
-                Mono.just(HttpResponse.badRequest())
+                Mono.just(HttpResponse.badRequest("From $id!!!!!!!!!!!!!!"))
             }
     }
 

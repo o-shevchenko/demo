@@ -16,14 +16,14 @@ class DemoTest {
 
     @Test
     fun testPass() {
-        val result = client.test("1")
+        val result = client.test("SUCCESS")
         Assertions.assertEquals(HttpStatus.OK, result.status)
     }
 
     @Test
     fun testFail() {
         val exception = Assertions.assertThrows(HttpClientResponseException::class.java) {
-            client.test("2")
+            client.test("FAIL")
         }
         Assertions.assertEquals(HttpStatus.BAD_REQUEST, exception.status)
     }
